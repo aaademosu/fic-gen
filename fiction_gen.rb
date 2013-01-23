@@ -1,4 +1,8 @@
 class Fiction_Generator
+    def used_by(name)
+        name.capitalize
+    end
+
     def created_by
         @name = "Ademosu Ayodele"
     end
@@ -7,38 +11,11 @@ class Fiction_Generator
         definate_id = ["an", "a"]
         vowel = "AEIOUaeiou"
         consonant = "BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz"
-        #if word starts with vowel den use (an) identifier, if oda wise use (a) #generate_identifier("alternate-history")
         if vowel.include? identifier[0]
             definate_id[0]
         elsif consonant.include? identifier[0]
             definate_id[1]
         end
-    end
-
-    def story_list
-
-        @list = []
-        @list << @story 
-        @list << @story2
-        @list << @story3
-        @list << @story4
-    end
-
-    def swap_story(number)
-        @list.pop(1)
-        @list.insert(1, @story5)
-    end
-
-    def random_date
-        date_now = (Time.now).to_i
-        randomize = rand(10000000..900000000)
-        random_date = Time.at(date_now - randomize)
-        random_date.strftime("%-d/%m/%Y")
-        #random_date.strftime("%A %B %-d, %Y") #DATE AS STRING
-    end
-
-    def student_id
-        @student_id = 51126138
     end
 
     def location_adj
@@ -47,13 +24,11 @@ class Fiction_Generator
 
     def location_noun
         location_noun = ['Scotland', 'America', 'Japan', 'Soviet Russia', 'Steampunk Britain', 'medieval Europe', 'Egyptian empire', 'Atlantis', 'terraformed Mars', 'Antarctica', 'one-way spaceflight', 'Outer Rim world', 'set from Road Warrior' ]
-        #location_noun = "#{location_noun[rand(0..13)]} #{location_noun[rand(0..13)]}"
     end
 
     def protagonist
         protagonist = ['Ferris Bueller wannabe', 'student of metaphysics', 'milquetoast office drone', "Ferris Bueller wannabeee",
             'schlub with mild <abbr>OCD</abbr>', 'farm boy with dreams', 'techno-obsessed geek', 'brooding loner', 'wisecracking mercenary', 'idealistic revolutionary', 'journeyman inventor', 'collector of oddities', 'rocketman of the 24th century']
-            #OW CAN I TAKIA OF THE ABBREVIATION USED ABOVE...
     end
 
     def discovery
@@ -86,15 +61,33 @@ class Fiction_Generator
     end
 
     def title
-        #dnt need to return a value since the last expression in a method is wat is going to be printed out.
-        "#{title_adj[rand(0...12)]} #{title_noun[rand(0...12)]}"
+        "#{title_adj[rand(0...12)]}-#{(title_noun[rand(0...12)]).capitalize}"        
+    end
+
+    def story_generator
+        story_noun = "#{location_noun[rand(0...13)]}" ; story_adjective = "#{location_adj[rand(0...12)]}" ; story_actor =  "#{protagonist[rand(0...13)]}" ; story_discovers = "#{discovery[rand(0...13)]}"
+        story_foe = "#{adversary[rand(0...12)]}" ; story_helper = "#{assistant[rand(0...8)]}" ; story_tool = "#{inventory[rand(0...8)]}" ; story_conflict = "#{conflict[rand(0...12)]}"     
+        composed_story = "In #{generate_identifier(story_adjective)} #{story_adjective} #{story_noun}, a young #{story_actor} stumbles across #{generate_identifier(story_discovers)} #{story_discovers} which spurs him into conflict with #{story_foe}, with the help of a #{story_helper} and her #{story_tool}, culminating in #{story_conflict}."
     end
 
     def story
-        location =  "#{location_noun[rand(0...13)]}" ; adj = "#{location_adj[rand(0...12)]}" ; pro =  "#{protagonist[rand(0...13)]}" 
-        disco =     "#{discovery[rand(0...13)]}" ; advr = "#{adversary[rand(0...12)]}"; ass = "#{assistant[rand(0...8)]}" ; inv = "#{inventory[rand(0...8)]}"
-        conf =      "#{conflict[rand(0...12)]}"
-        @story2 = @story3 = @story4 = @story5 = @story  #@story2 = @story; @story3 = @story; @story4 = @story; @story5 = @story
-        @story = "In #{generate_identifier(adj)} #{adj} #{location}, a young #{pro} stumbles across #{generate_identifier(disco)} #{disco} which spurs him into conflict with #{advr}, with the help of a #{ass} and her #{inv}, culminating in #{conf}."
+        puts "  The fiction titled: #{title}, reads:"
+        puts story_generator        
+    end
+
+    def story_list
+        puts
+        puts "  Type any 'n' to proceed or any character other than 'n' to exit at any time."
+        prompt; @input = gets.chomp
+        while @input == 'n'
+            puts story
+            prompt; @input = gets.chomp
+        end
+    end
+
+    def output(name)        
+        puts
+        puts "The generator created by Ademosu, is being used by #{used_by(name)}"
+        puts story
     end
 end

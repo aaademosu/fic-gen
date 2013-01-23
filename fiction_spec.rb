@@ -8,14 +8,7 @@ require "#{File.dirname(__FILE__)}/fiction_gen"
     end
     
     it "should return the student name" do
-     # substitute your name here
-    @fict_gen.created_by.should == "Ademosu Ayodele"
-    #method.should 'requirements/predicate/condition'
-    end
-    
-    it "should return the student id" do
-     # substitute your name and student id
-    @fict_gen.student_id.should==51126138
+      @fict_gen.created_by.should == "Ademosu Ayodele"
     end
     
     it "should load up location adjectives" do
@@ -28,7 +21,6 @@ require "#{File.dirname(__FILE__)}/fiction_gen"
     
     it "should load up location nouns" do
       @fict_gen.location_noun.size.should == 13
-      #since i had to include scotland, my count increased/increases to 13
     end
      
     it "should load up location nouns" do
@@ -37,7 +29,6 @@ require "#{File.dirname(__FILE__)}/fiction_gen"
      
     it "should load up protagonist" do
       @fict_gen.protagonist.size.should == 13
-      #also increase cos of d addition of the string below
     end
       
     it "should load up protagonist" do
@@ -46,7 +37,6 @@ require "#{File.dirname(__FILE__)}/fiction_gen"
       
     it "should load up discovery" do
       @fict_gen.discovery.size.should == 13
-      #also increased ooo
     end
        
     it "should load up discovery" do
@@ -81,14 +71,20 @@ require "#{File.dirname(__FILE__)}/fiction_gen"
     end
     
     it "should randomly generate a story using an item from each array" do
-     @fict_gen.story.should be_true
+     @fict_gen.story_generator.should be_true
+    end
+
+    it "should provide correct indefinate identifiers of 'an' for the story" do
+      @fict_gen.generate_identifier("alternate-history").should == "an"
+    end
+
+    it "should provide correct indefinate identifiers of 'a' for the story" do
+      @fict_gen.generate_identifier("coal-powered").should == "a"
     end
     
     after(:all) do
       puts "this fiction generator was created by #{@fict_gen.created_by}"
-      puts "who has the student id of #{@fict_gen.student_id}"
-      puts "your story is called #{@fict_gen.title} "
-      puts "and it goes like this:"
-      puts @fict_gen.story
+      puts "The fiction is titled #{@fict_gen.title}, and it reads "
+      puts @fict_gen.story_generator
     end
 end
