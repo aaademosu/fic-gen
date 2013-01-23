@@ -5,7 +5,7 @@
 
 # Note ##
   ====
-	Comes with test files and thus might require the installation of Rspec.ß
+	Comes with test files and thus might require the installation of Rspec.
 
 ## License ##
    ========
